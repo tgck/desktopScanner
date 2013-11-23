@@ -1,0 +1,234 @@
+// !$*UTF8*$!
+{
+	2372C61C18405765002625C9 /* desktopScanner */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = desktopScanner;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	2372C62B18405766002625C9 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	2372C62C18405766002625C9 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	2372C64D184057EA002625C9 /* DesktopScanner.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {724, 345}}";
+			sepNavSelRange = "{301, 0}";
+			sepNavVisRange = "{0, 579}";
+		};
+	};
+	2372C64E184057EA002625C9 /* DesktopScanner.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {724, 1976}}";
+			sepNavSelRange = "{1154, 0}";
+			sepNavVisRange = "{27, 713}";
+			sepNavWindowFrame = "{{342, 71}, {858, 675}}";
+		};
+	};
+	2372C65518405821002625C9 /* Finder.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {4359, 10595}}";
+			sepNavSelRange = "{6720, 7}";
+			sepNavVisRange = "{39311, 1714}";
+		};
+	};
+	2372C6E9184058E9002625C9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 10";
+		rLen = 0;
+		rLoc = 156;
+		rType = 0;
+		vrLen = 253;
+		vrLoc = 0;
+	};
+	2372C6EA184058E9002625C9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* desktopScannerAppDelegate.h */;
+		name = "desktopScannerAppDelegate.h: 10";
+		rLen = 0;
+		rLoc = 177;
+		rType = 0;
+		vrLen = 329;
+		vrLoc = 0;
+	};
+	2372C6FB1840591E002625C9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* desktopScannerAppDelegate.m */;
+		name = "desktopScannerAppDelegate.m: 8";
+		rLen = 0;
+		rLoc = 152;
+		rType = 0;
+		vrLen = 490;
+		vrLoc = 0;
+	};
+	2372C707184059C5002625C9 /* NSGeometry.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = NSGeometry.h;
+		path = /Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSGeometry.h;
+		sourceTree = "<absolute>";
+	};
+	2372C75A18405BC9002625C9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2372C707184059C5002625C9 /* NSGeometry.h */;
+		name = "NSGeometry.h: 20";
+		rLen = 0;
+		rLoc = 625;
+		rType = 0;
+		vrLen = 801;
+		vrLoc = 0;
+	};
+	23B79B281840608800E22895 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2372C64E184057EA002625C9 /* DesktopScanner.m */;
+		name = "DesktopScanner.m: 49";
+		rLen = 0;
+		rLoc = 1154;
+		rType = 0;
+		vrLen = 713;
+		vrLoc = 27;
+	};
+	23E781781840604D00A46E98 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2372C65518405821002625C9 /* Finder.h */;
+		name = "Finder.h: 185";
+		rLen = 7;
+		rLoc = 6720;
+		rType = 0;
+		vrLen = 1714;
+		vrLoc = 39311;
+	};
+	23E781791840604D00A46E98 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2372C64D184057EA002625C9 /* DesktopScanner.h */;
+		name = "DesktopScanner.h: 14";
+		rLen = 0;
+		rLoc = 301;
+		rType = 0;
+		vrLen = 579;
+		vrLoc = 0;
+	};
+	23E7817C1840604F00A46E98 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2372C64E184057EA002625C9 /* DesktopScanner.m */;
+		name = "DesktopScanner.m: 49";
+		rLen = 0;
+		rLoc = 1154;
+		rType = 0;
+		vrLen = 740;
+		vrLoc = 0;
+	};
+	256AC3D80F4B6AC300CF3369 /* desktopScannerAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {565, 359}}";
+			sepNavSelRange = "{177, 0}";
+			sepNavVisRange = "{0, 329}";
+		};
+	};
+	256AC3D90F4B6AC300CF3369 /* desktopScannerAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {565, 382}}";
+			sepNavSelRange = "{152, 0}";
+			sepNavVisRange = "{0, 490}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 2372C61C18405765002625C9 /* desktopScanner */;
+		activeTarget = 8D1107260486CEB800E47090 /* desktopScanner */;
+		addToTargets = (
+			8D1107260486CEB800E47090 /* desktopScanner */,
+		);
+		codeSenseManager = 2372C62C18405766002625C9 /* Code sense */;
+		executables = (
+			2372C61C18405765002625C9 /* desktopScanner */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					546,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 406872186;
+			PBXWorkspaceStateSaveDate = 406872186;
+		};
+		perUserProjectItems = {
+			2372C6E9184058E9002625C9 /* PBXTextBookmark */ = 2372C6E9184058E9002625C9 /* PBXTextBookmark */;
+			2372C6EA184058E9002625C9 /* PBXTextBookmark */ = 2372C6EA184058E9002625C9 /* PBXTextBookmark */;
+			2372C6FB1840591E002625C9 /* PBXTextBookmark */ = 2372C6FB1840591E002625C9 /* PBXTextBookmark */;
+			2372C75A18405BC9002625C9 /* PBXTextBookmark */ = 2372C75A18405BC9002625C9 /* PBXTextBookmark */;
+			23B79B281840608800E22895 /* PBXTextBookmark */ = 23B79B281840608800E22895 /* PBXTextBookmark */;
+			23E781781840604D00A46E98 /* PBXTextBookmark */ = 23E781781840604D00A46E98 /* PBXTextBookmark */;
+			23E781791840604D00A46E98 /* PBXTextBookmark */ = 23E781791840604D00A46E98 /* PBXTextBookmark */;
+			23E7817C1840604F00A46E98 /* PBXTextBookmark */ = 23E7817C1840604F00A46E98 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 2372C62B18405766002625C9 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {565, 359}}";
+			sepNavSelRange = "{156, 0}";
+			sepNavVisRange = "{0, 253}";
+		};
+	};
+	8D1107260486CEB800E47090 /* desktopScanner */ = {
+		activeExec = 0;
+		executables = (
+			2372C61C18405765002625C9 /* desktopScanner */,
+		);
+	};
+}
