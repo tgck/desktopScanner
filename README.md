@@ -3,14 +3,14 @@ desktopScanner
 
 #### What is This?
 
-Finder 項目の座標をトラッキングするアプリケーションです。
-結果をOSCフォーマットに従って標準出力します。
-通信機能は持っていません。適当なOSCクライアントにパイプしてユーザアプリケーションに渡してください。
-拡張子に ".aif" をもつファインダ項目を抽出してトラックします。
+Finder 項目の座標をトラッキングするアプリケーションです。  
+結果をOSCフォーマットに従って標準出力します。  
+通信機能は持っていません。適当なOSCクライアントにパイプしてユーザアプリケーションに渡してください。  
+拡張子に ".aif" をもつファインダ項目を抽出してトラックします。  
 
-A simple Finder-Item position tracker.
-Result written to stdout, so use any OSC Client such as pyliblo for IPC.
-Currently this tracks ".aiff" files only.
+A simple Finder-Item position tracker.  
+Result written to stdout, so use any OSC Client such as pyliblo for IPC.  
+Currently this tracks ".aiff" files only.  
 
 #### How to Use
 
@@ -25,7 +25,8 @@ starting up... this version of dscan(DesktopScanner) doesn't have network functi
 /update 1 01.aif 929 416
 ```
 
-* OSCメッセージセンダと連携する
+* OSCメッセージセンダと連携する例
+
 ```bash
 ./dscan | oscsender.py
 ```
@@ -46,11 +47,10 @@ starting up... this version of dscan(DesktopScanner) doesn't have network functi
 
 * 2014.9 Version 2  
 
-* OSC通信機能を除去 Exclude OSC
-* コマンドラインで起動する形式に変更。
-
+	* OSC通信機能を除去 Exclude OSC
+	* コマンドラインで起動する形式に変更。
 	
 * 2013.11 Version 1  
 
-A prototype with dummy GUI (With Cocoa, Liblo)
+	* A prototype with dummy GUI (With Cocoa, Liblo)
 
