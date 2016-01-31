@@ -1,23 +1,44 @@
 desktopScanner
 ==============
 
-Finder Item position tracker and report with OSC
-Uses Cocoa : dummy GUI
+#### What is This?
 
-To Get Finder.h:
-	`sdef /System/Library/CoreServices/Finder.app | sdp -fh --basename Finder`
+Finder 項目の座標をトラッキングするアプリケーションです。
+結果をOSCフォーマットに従って標準出力します。
+通信機能は持っていません。適当なOSCクライアントにパイプしてユーザアプリケーションに渡してください。
+拡張子に ".aiff" をもつファインダ項目を抽出してトラックします。
+
+A simple Finder-Item position tracker.
+Result written to stdout, so use any OSC Client such as pyliblo for IPC.
+Currently this tracks ".aiff" files only.
+
+#### How to Use
+
+```bash
+ln -s xcode/dscan/build/Debug/desktopScanner ./dscan
+./dscan | ./oscsender.py
+```
 
 #### Dependencies
-	- liblo 0.26 (http://liblo.sourceforge.net/)
-	- Scripting Bridge Framework
+
+* OS X Scripting Bridge Framework
 		
 #### Tested in
-	- Mac OS X 10.6.8
-	- Xcode 3.2.6
+
+* Mac OS X 10.9.5
+* Xcode 5.1.1
 	
 #### Known Problems
-	- can't build in "Release".
 
 #### History
-	- 2013.11 Version 1 - Use Dummy GUI
+
+* 2014.9 Version 2  
+
+* OSC通信機能を除去 Exclude OSC
+* コマンドラインで起動する形式に変更。
+
+	
+* 2013.11 Version 1  
+
+A prototype with dummy GUI (With Cocoa, Liblo)
 
