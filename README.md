@@ -6,7 +6,7 @@ desktopScanner
 Finder 項目の座標をトラッキングするアプリケーションです。
 結果をOSCフォーマットに従って標準出力します。
 通信機能は持っていません。適当なOSCクライアントにパイプしてユーザアプリケーションに渡してください。
-拡張子に ".aiff" をもつファインダ項目を抽出してトラックします。
+拡張子に ".aif" をもつファインダ項目を抽出してトラックします。
 
 A simple Finder-Item position tracker.
 Result written to stdout, so use any OSC Client such as pyliblo for IPC.
@@ -14,10 +14,22 @@ Currently this tracks ".aiff" files only.
 
 #### How to Use
 
+* 実行体を引数なしで起動します。
+
 ```bash
-ln -s xcode/dscan/build/Debug/desktopScanner ./dscan
-./dscan | ./oscsender.py
+$ $HOME/Library/Developer/Xcode/DerivedData/dscan-xxx/Build/Products/Debug/dscan
+starting up... this version of dscan(DesktopScanner) doesn't have network function.
+/dump 1 01.aif 761 36
+/update 1 01.aif 757 316
+/update 1 01.aif 929 376
+/update 1 01.aif 929 416
 ```
+
+* OSCメッセージセンダと連携する
+```bash
+./dscan | oscsender.py
+```
+
 
 #### Dependencies
 
