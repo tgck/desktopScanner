@@ -54,3 +54,4 @@ starting up... this version of dscan(DesktopScanner) doesn't have network functi
 
 	* A prototype with dummy GUI (With Cocoa, Liblo)
 
+
