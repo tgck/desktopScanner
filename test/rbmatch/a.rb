@@ -20,7 +20,7 @@ names = files.arrayByApplyingSelector(:name)            # array of NSMutableStri
 count = 0
 matchedFiles = []
 for i in names
-	if str = i.UTF8String.match(/.*\.aif/)   # マッチの都合、ここで NSSTring を
+	if str = i.UTF8String.match(/.*\.(aif|aiff|jpg|txt)/)   # マッチの都合、ここで NSString を String にキャスト
 		puts "NSString: " +  i
 		puts "String:   " +  str[0]
 		count += 1
