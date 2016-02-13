@@ -9,6 +9,9 @@ include OSX
 OSX.require_framework 'ScriptingBridge'
 require 'item.rb'
 
+# 時間計測
+start_time = Time.now
+
 # メイン処理
 finder = SBApplication.applicationWithBundleIdentifier("com.apple.finder")
 
@@ -27,7 +30,13 @@ for i in 0..files.length-1 do
 	targets.push(Item.new(names[i], poss[i].pointValue.x, poss[i].pointValue.y, posixPaths[i]))
 end
 
+t = Time.now - start_time
+
 # 確認
 for i in targets
 	i.print
 end
+
+# benchmark
+c = files.length
+STDERR.puts sprintf("\nINFO: scanned [%s] items [%.4f] seconds. => [%.4f]sec/item", c, t, t/c )
