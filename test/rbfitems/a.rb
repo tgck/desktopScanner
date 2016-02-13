@@ -7,6 +7,7 @@
 require 'osx/cocoa'
 include OSX
 OSX.require_framework 'ScriptingBridge'
+require 'b.rb'
 
 # 関数定義
 def list(files)
@@ -17,9 +18,12 @@ def list(files)
 	end
 end
 
-# 処理
+# メイン処理
 finder = SBApplication.applicationWithBundleIdentifier("com.apple.finder")
 
 files = finder.files
 list(files)
 
+f = files[0]
+i = Item.new(f.name, f.desktopPosition.x, f.desktopPosition.y)
+i.print
