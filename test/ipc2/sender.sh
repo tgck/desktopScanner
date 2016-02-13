@@ -5,11 +5,8 @@ PORT="1234"
 TAG="/foo/message1"
 TYPE=""
 
-# bash で正規表現
-# 引数一個
-
 function usage() {
-    echo "  Usage: echo message | ${0} " 
+    echo "  Usage: echo some_message | ${0} " 
     echo "    or : ${0} << (here document) "
     exit
 }
