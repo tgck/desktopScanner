@@ -22,8 +22,23 @@ end
 finder = SBApplication.applicationWithBundleIdentifier("com.apple.finder")
 
 files = finder.files
-list(files)
+names = files.arrayByApplyingSelector(:name) # array of NSMutableString
+poss = files.arrayByApplyingSelector(:desktopPosition)  # array of NSConcreteValue
+paths = files.arrayByApplyingSelector(:URL)  # array of NSMutableString
 
-f = files[0]
-i = Item.new(f.name, f.desktopPosition.x, f.desktopPosition.y)
-i.print
+posixPaths = []
+paths.each do |i| 
+	posixPaths.push(NSURL.URLWithString(i).path)
+end
+
+# list(files)
+
+targets = []
+for i in 0..files.length-1 do
+#while i < files.length
+	item = Item.new(names[i], poss[i].pointValue.x, poss[i].pointValue.y)
+	#puts sprintf("%s %s %s", names[i], poss[i].pointValue.x, poss[i].pointValue.y)
+	targets.push(item)
+	item.print
+end
+#
