@@ -19,20 +19,20 @@ names = files.arrayByApplyingSelector(:name)            # array of NSMutableStri
 
 count = 0
 matchedFiles = []
-for i in names
-	if str = i.UTF8String.match(/.*\.(aif|aiff|jpg|txt)/)   # マッチの都合、ここで NSString を String にキャスト
-		puts "NSString: " +  i
-		puts "String:   " +  str[0]
-		count += 1
+for i in 1..files.length-1
+	if names[i].UTF8String.match(/.*\.(aif|aiff|jpg|txt)/)   # マッチの都合、ここで NSString を String にキャスト
+		matchedFiles.push(files[i])
 	end
 end
-
 
 t = Time.now - start_time
 
 # 確認
+for obj in matchedFiles
+	puts obj.name
+end
 
 # benchmark
-c = files.length
-STDERR.puts sprintf("\nINFO: [%s] file matched", count)
+c = matchedFiles.length
+STDERR.puts sprintf("\nINFO: [%s] matched against [%s] total files.", c, files.length )
 STDERR.puts sprintf("INFO: scanned [%s] items [%.4f] seconds. => [%.4f]sec/item", c, t, t/c )
