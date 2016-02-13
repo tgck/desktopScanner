@@ -2,7 +2,7 @@
 
 # ruby 1.8.7 on OS X Marverics
 #
-# 条件に見合った Finder 項目の座標を出力する
+# Finder 項目の名前、座標、フルパス を出力する
 
 require 'osx/cocoa'
 include OSX
