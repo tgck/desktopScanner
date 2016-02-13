@@ -7,7 +7,7 @@
 require 'osx/cocoa'
 include OSX
 OSX.require_framework 'ScriptingBridge'
-require 'b.rb'
+require 'item.rb'
 
 # メイン処理
 finder = SBApplication.applicationWithBundleIdentifier("com.apple.finder")
@@ -24,7 +24,7 @@ end
 
 targets = []
 for i in 0..files.length-1 do
-	targets.push(Item.new(names[i], poss[i].pointValue.x, poss[i].pointValue.y))
+	targets.push(Item.new(names[i], poss[i].pointValue.x, poss[i].pointValue.y, posixPaths[i]))
 end
 
 # 確認

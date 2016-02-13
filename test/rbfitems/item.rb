@@ -7,14 +7,14 @@ include OSX
 
 # クラス
 class Item
-	def initialize(name, x, y)
+	def initialize(name, x, y, path)
 		@name = name
 		@x = x
 		@y = y
-		@path = ''
+		@path = path
 	end
 	def print
-		puts sprintf('%s, %s, %s', @name, @x, @y)
+		puts sprintf('%s,%s,%s,%s', @name, @x, @y, @path)
 	end
 end
 
