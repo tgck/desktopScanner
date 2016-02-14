@@ -8,6 +8,9 @@ require 'osx/cocoa'
 include OSX
 OSX.require_framework 'ScriptingBridge'
 
+# 拡張子; 定数的に
+EXTS = Regexp.new('.*\.(aif|aiff|jpg|txt)', Regexp::IGNORECASE)
+
 # 時間計測
 start_time = Time.now
 
@@ -20,7 +23,7 @@ names = files.arrayByApplyingSelector(:name)            # array of NSMutableStri
 count = 0
 matchedFiles = []
 for i in 1..files.length-1
-	if names[i].UTF8String.match(/.*\.(aif|aiff|jpg|txt)/)   # マッチの都合、ここで NSString を String にキャスト
+	if names[i].UTF8String.match(EXTS)   # マッチの都合、ここで NSString を String にキャスト
 		matchedFiles.push(files[i])
 	end
 end
