@@ -18,7 +18,7 @@ EXTS = Regexp.new('.*\.(aif|aiff|wav|mp3|jpg)', Regexp::IGNORECASE)
 finder = SBApplication.applicationWithBundleIdentifier("com.apple.finder")
 
 files = finder.files
-names = files.arrayByApplyingSelector(:name)            # array of NSMutableString
+#names = files.arrayByApplyingSelector(:name)            # array of NSMutableString
 
 # 配列をつめ直すアプローチは なぜかエラーになる
 # 違うアプローチで。
@@ -28,22 +28,21 @@ names = files.arrayByApplyingSelector(:name)            # array of NSMutableStri
 ## delete_if 使ってみる？
 ## http://simanman.hatenablog.com/entry/2013/03/20/013808
 
+targets = [] 
+	# finder.files のいくつかの要素への参照を保持するだけの配列。
+	# 以降の操作はこの配列を介して情報取得する
 for i in files
 	if i.name.UTF8String.match(EXTS)   # マッチの都合、ここで NSString を String にキャスト
-		puts 'that is a target'
-	else
-		puts 'that is a NOT a target'
-		puts i.name
-		files.pop
+		puts sprintf('A target:     %s', i.name)
+		targets.push(i) # FinderItemへの参照を格納したいだけ。
 	end
 end
 
-puts files.size
+puts sprintf('All files   [%s]', files.size)
+puts sprintf('target files[%s]', targets.size)
 
-for i in 1..files.length-1
-	if names[i].UTF8String.match(EXTS)   # マッチの都合、ここで NSString を String にキャスト
-		targetFiles.push(files[i])
-	end
+for i in targets
+	puts sprintf('%s,%s,%s,%s', i.name, i.desktopPosition.x, i.desktopPosition.y, i.URL)
 end
 
 # =============================================================================
@@ -51,37 +50,37 @@ end
 
 # 各種配列を作成する
 
-puts 'a', files.size
-puts 'b', files[0]
-puts 'c', files[0].desktopPosition.x # 取れてる
-puts 'd', files[0].desktopPosition.y # 取れてる
+# puts 'a', files.size
+# puts 'b', files[0]
+# puts 'c', files[0].desktopPosition.x # 取れてる
+# puts 'd', files[0].desktopPosition.y # 取れてる
 
 names2 = files.arrayByApplyingSelector(:name)            # array of NSMutableString
 poss = files.arrayByApplyingSelector(:desktopPosition)  # array of NSConcreteValue
-	# ここが 通らない...
-	# => /System/Library/Frameworks/RubyCocoa.framework/Resources/ruby/osx/objc/oc_wrapper.rb:50: [BUG] Segmentation fault
-	# => ruby 1.8.7 (2012-02-08 patchlevel 358) [universal-darwin13.0]
-	# => Abort trap: 6
+# 	# ここが 通らない...
+# 	# => /System/Library/Frameworks/RubyCocoa.framework/Resources/ruby/osx/objc/oc_wrapper.rb:50: [BUG] Segmentation fault
+# 	# => ruby 1.8.7 (2012-02-08 patchlevel 358) [universal-darwin13.0]
+# 	# => Abort trap: 6
 
 paths = files.arrayByApplyingSelector(:URL)             # array of NSMutableString
 
-puts 'e', files.class
-puts 'f', names[0]
-puts 'g', paths[0]
+# puts 'e', files.class
+# puts 'f', names[0]
+# puts 'g', paths[0]
 
 posixPaths = []
 paths.each do |i| 
 	posixPaths.push(NSURL.URLWithString(i).path)
 end
 
-#items = []
-#for i in 0..targetFiles.length-1 do
-#	items.push(Item.new(names2[i], poss[i].pointValue.x, poss[i].pointValue.y, posixPaths[i]))
-#end
+items = []
+for i in 0..targets.length-1 do
+	items.push(Item.new(names2[i], poss[i].pointValue.x, poss[i].pointValue.y, posixPaths[i]))
+end
 
-#for i in items
-#	i.print
-#end
+for i in items
+	i.print
+end
 
 # =============================================================================
 # メイン処理 - 3 変更差分のレポート
