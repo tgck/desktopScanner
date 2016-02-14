@@ -18,15 +18,6 @@ EXTS = Regexp.new('.*\.(aif|aiff|wav|mp3|jpg)', Regexp::IGNORECASE)
 finder = SBApplication.applicationWithBundleIdentifier("com.apple.finder")
 
 files = finder.files
-#names = files.arrayByApplyingSelector(:name)            # array of NSMutableString
-
-# 配列をつめ直すアプローチは なぜかエラーになる
-# 違うアプローチで。
-
-# 途中
-
-## delete_if 使ってみる？
-## http://simanman.hatenablog.com/entry/2013/03/20/013808
 
 targets = [] 
 	# finder.files のいくつかの要素への参照を保持するだけの配列。
@@ -50,37 +41,42 @@ end
 
 # 各種配列を作成する
 
-# puts 'a', files.size
-# puts 'b', files[0]
-# puts 'c', files[0].desktopPosition.x # 取れてる
-# puts 'd', files[0].desktopPosition.y # 取れてる
-
-names2 = files.arrayByApplyingSelector(:name)            # array of NSMutableString
+names = files.arrayByApplyingSelector(:name)            # array of NSMutableString
 poss = files.arrayByApplyingSelector(:desktopPosition)  # array of NSConcreteValue
-# 	# ここが 通らない...
-# 	# => /System/Library/Frameworks/RubyCocoa.framework/Resources/ruby/osx/objc/oc_wrapper.rb:50: [BUG] Segmentation fault
-# 	# => ruby 1.8.7 (2012-02-08 patchlevel 358) [universal-darwin13.0]
-# 	# => Abort trap: 6
 
+# Posix path の組み立て
 paths = files.arrayByApplyingSelector(:URL)             # array of NSMutableString
-
-# puts 'e', files.class
-# puts 'f', names[0]
-# puts 'g', paths[0]
 
 posixPaths = []
 paths.each do |i| 
 	posixPaths.push(NSURL.URLWithString(i).path)
 end
 
-items = []
-for i in 0..targets.length-1 do
-	items.push(Item.new(names2[i], poss[i].pointValue.x, poss[i].pointValue.y, posixPaths[i]))
+# DESIGN: 2次元配列 a に座標情報を格納する
+# 引くとき a[ItemIndex] 
+#    シンプルにアクセスできるよう、余分だけど対象でないファイルの分も要素を確保しておく。
+#    また、ItemIndex は 1からはじまるっぽいので、a[0] は欠番とする。
+# 格納するとき 
+#    a[ItemIndex][0] = position.x
+#    a[ItemIndex][1] = position.y
+
+p '====================================='
+
+## 格納 (アプローチ2)
+# index が飛んでいることがあるので、配列は大きめに確保する
+ARR_SIZE = files.size + 10
+frames = Array.new(ARR_SIZE).map{Array.new(2)}
+for i in targets
+	frames[i.index] = [i.desktopPosition.x, i.desktopPosition.y]
 end
 
-for i in items
-	i.print
+for i in 0..ARR_SIZE-1
+	p sprintf('%s %d %d', i, frames[i][0], frames[i][1])
 end
+
+p '====================================='
+
+## 受取側で情報取得できるかどうか確認する。
 
 # =============================================================================
 # メイン処理 - 3 変更差分のレポート
