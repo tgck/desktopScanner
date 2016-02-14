@@ -64,10 +64,11 @@ p '====================================='
 
 ## 格納 (アプローチ2)
 # index が飛んでいることがあるので、配列は大きめに確保する
+# TODO : 関数化 initFrame(frames, targets)
 ARR_SIZE = files.size + 10
 frames = Array.new(ARR_SIZE).map{Array.new(2)}
 for i in targets
-	frames[i.index] = [i.desktopPosition.x, i.desktopPosition.y]
+	frames[i.index] = [i.desktopPosition.x, i.desktopPosition.y] # 参照がコピーされていないか心配
 end
 
 for i in 0..ARR_SIZE-1
@@ -75,6 +76,20 @@ for i in 0..ARR_SIZE-1
 end
 
 p '====================================='
+
+sleep 10
+
+# 変更の検知
+# TODO: 構造化 & 前フレームの上書き & 差分の記録(送信可能な形態に)
+for i in targets
+	if i.desktopPosition.x != frames[i.index][0]
+		puts sprintf('change in %s:%s posx[%s] => [%s]', i.index, i.name, frames[i.index][0], i.desktopPosition.x)
+	else 
+		puts sprintf('no changes in %s:%s', i.index, i.name)
+	end
+end
+
+p '===================================== DONE!'
 
 ## 受取側で情報取得できるかどうか確認する。
 
