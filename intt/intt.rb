@@ -7,10 +7,9 @@
 require 'osx/cocoa'
 include OSX
 OSX.require_framework 'ScriptingBridge'
-require 'item.rb'
 
 # 拡張子; 定数的に
-EXTS = Regexp.new('.*\.(aif|aiff|wav|mp3|jpg)', Regexp::IGNORECASE)
+EXTS = Regexp.new('.*\.(aif|aiff)', Regexp::IGNORECASE)
 
 # =============================================================================
 # 変更検知
@@ -19,7 +18,10 @@ def scanDifference(frame, currentFiles)
 	# TODO: 構造化 & 前フレームの上書き & 差分の記録(送信可能な形態に)
 	for i in currentFiles
 		if i.desktopPosition.x != frame[i.index][0]
+			p 'change!'
 			puts sprintf('change in %s:%s posx[%s] => [%s]', i.index, i.name, frame[i.index][0], i.desktopPosition.x)
+			# フレーム更新
+			frame[i.index][0] = i.desktopPosition.x
 		else 
 			# puts sprintf('no changes in %s:%s', i.index, i.name)
 		end
@@ -31,12 +33,14 @@ end
 # メイン処理 - 1 ファイル抽出
 finder = SBApplication.applicationWithBundleIdentifier("com.apple.finder")
 
-files = finder.files
+# 参照箇所1
+files = finder.files.clone
 
 targets = [] 
 	# finder.files のいくつかの要素への参照を保持するだけの配列。
 	# 以降の操作はこの配列を介して情報取得する
 for i in files
+
 	if i.name.UTF8String.match(EXTS)   # マッチの都合、ここで NSString を String にキャスト
 		puts sprintf('A target:     %s', i.name)
 		targets.push(i) # FinderItemへの参照を格納したいだけ。
@@ -45,6 +49,8 @@ end
 
 puts sprintf('All files   [%s]', files.size)
 puts sprintf('target files[%s]', targets.size)
+
+targets = targets
 
 for i in targets
 	puts sprintf('%s,%s,%s,%s', i.name, i.desktopPosition.x, i.desktopPosition.y, i.URL)
@@ -97,7 +103,7 @@ loop do
 	scanDifference(frames, targets)
 	p sprintf('===================================== %s %s', c, Time.now)
 	c += 1;
-	sleep(1)
+	sleep(5)
 end
 
 ## 受取側で情報取得できるかどうか確認する。
