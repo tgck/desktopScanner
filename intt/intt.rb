@@ -9,7 +9,7 @@ include OSX
 OSX.require_framework 'ScriptingBridge'
 
 # 拡張子; 定数的に
-EXTS = Regexp.new('.*\.(aif|aiff)', Regexp::IGNORECASE)
+EXTS = Regexp.new('.*\.(aif|aiff|jpg|txt)', Regexp::IGNORECASE)
 
 # =============================================================================
 # 変更検知
@@ -17,11 +17,14 @@ def scanDifference(frame, currentFiles)
 	# 変更の検知
 	# TODO: 構造化 & 前フレームの上書き & 差分の記録(送信可能な形態に)
 	for i in currentFiles
-		if i.desktopPosition.x != frame[i.index][0]
+		idx = i.index
+		prev_val = frame[idx][0]
+		curr_val = i.desktopPosition.x
+		if prev_val != curr_val
 			p 'change!'
-			puts sprintf('change in %s:%s posx[%s] => [%s]', i.index, i.name, frame[i.index][0], i.desktopPosition.x)
+			puts sprintf('change in %s:%s posx[%s] => [%s]', idx, '#i.name', frame[idx][0], curr_val)
 			# フレーム更新
-			frame[i.index][0] = i.desktopPosition.x
+			frame[idx][0] = curr_val
 		else 
 			# puts sprintf('no changes in %s:%s', i.index, i.name)
 		end
@@ -103,7 +106,7 @@ loop do
 	scanDifference(frames, targets)
 	p sprintf('===================================== %s %s', c, Time.now)
 	c += 1;
-	sleep(5)
+	sleep(1)
 end
 
 ## 受取側で情報取得できるかどうか確認する。
