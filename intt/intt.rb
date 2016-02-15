@@ -35,17 +35,16 @@ end
 # =============================================================================
 # メイン処理 - 1 ファイル抽出
 finder = SBApplication.applicationWithBundleIdentifier("com.apple.finder")
-
-# 参照箇所1
-files = finder.files.clone
+files = finder.files
 
 targets = [] 
 	# finder.files のいくつかの要素への参照を保持するだけの配列。
 	# 以降の操作はこの配列を介して情報取得する
-for i in files
 
-	if i.name.UTF8String.match(EXTS)   # マッチの都合、ここで NSString を String にキャスト
-		puts sprintf('A target:     %s', i.name)
+for i in files
+	name = i.name
+	if name.UTF8String.match(EXTS)   # マッチの都合、ここで NSString を String にキャスト
+		puts sprintf('A target:     %s', name)
 		targets.push(i) # FinderItemへの参照を格納したいだけ。
 	end
 end
@@ -53,27 +52,12 @@ end
 puts sprintf('All files   [%s]', files.size)
 puts sprintf('target files[%s]', targets.size)
 
-targets = targets
-
 for i in targets
-	puts sprintf('%s,%s,%s,%s', i.name, i.desktopPosition.x, i.desktopPosition.y, i.URL)
+	puts sprintf('%s,%s,%s,%s', i.name, i.desktopPosition.x, i.desktopPosition.y, NSURL.URLWithString(i.URL).path)
 end
 
 # =============================================================================
 # メイン処理 - 2 対象ファイルの座標を取得　& レポート
-
-# 各種配列を作成する
-
-names = files.arrayByApplyingSelector(:name)            # array of NSMutableString
-poss = files.arrayByApplyingSelector(:desktopPosition)  # array of NSConcreteValue
-
-# Posix path の組み立て
-paths = files.arrayByApplyingSelector(:URL)             # array of NSMutableString
-
-posixPaths = []
-paths.each do |i| 
-	posixPaths.push(NSURL.URLWithString(i).path)
-end
 
 # DESIGN: 2次元配列 a に座標情報を格納する
 # 引くとき a[ItemIndex] 
@@ -86,12 +70,13 @@ end
 p '====================================='
 
 ## 格納 (アプローチ2)
-# index が飛んでいることがあるので、配列は大きめに確保する
-# TODO : 関数化 initFrame(frames, targets)
 ARR_SIZE = files.size + 10
 frames = Array.new(ARR_SIZE).map{Array.new(2)}
+
 for i in targets
-	frames[i.index] = [i.desktopPosition.x, i.desktopPosition.y] # 参照がコピーされていないか心配
+	idx = i.index
+	pos = i.desktopPosition
+	frames[idx] = [pos.x, pos.y] # 参照がコピーされていないか心配
 end
 
 for i in 0..ARR_SIZE-1
@@ -106,7 +91,7 @@ loop do
 	scanDifference(frames, targets)
 	p sprintf('===================================== %s %s', c, Time.now)
 	c += 1;
-	sleep(1)
+	sleep(5)
 end
 
 ## 受取側で情報取得できるかどうか確認する。
