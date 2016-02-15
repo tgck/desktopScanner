@@ -12,6 +12,20 @@ require 'item.rb'
 # 拡張子; 定数的に
 EXTS = Regexp.new('.*\.(aif|aiff|wav|mp3|jpg)', Regexp::IGNORECASE)
 
+# =============================================================================
+# 変更検知
+def scanDifference(frame, currentFiles)
+	# 変更の検知
+	# TODO: 構造化 & 前フレームの上書き & 差分の記録(送信可能な形態に)
+	for i in currentFiles
+		if i.desktopPosition.x != frame[i.index][0]
+			puts sprintf('change in %s:%s posx[%s] => [%s]', i.index, i.name, frame[i.index][0], i.desktopPosition.x)
+		else 
+			# puts sprintf('no changes in %s:%s', i.index, i.name)
+		end
+	end
+end
+
 
 # =============================================================================
 # メイン処理 - 1 ファイル抽出
@@ -77,19 +91,14 @@ end
 
 p '====================================='
 
-sleep 10
-
-# 変更の検知
-# TODO: 構造化 & 前フレームの上書き & 差分の記録(送信可能な形態に)
-for i in targets
-	if i.desktopPosition.x != frames[i.index][0]
-		puts sprintf('change in %s:%s posx[%s] => [%s]', i.index, i.name, frames[i.index][0], i.desktopPosition.x)
-	else 
-		puts sprintf('no changes in %s:%s', i.index, i.name)
-	end
+c = 1;
+# ループ
+loop do
+	scanDifference(frames, targets)
+	p sprintf('===================================== %s %s', c, Time.now)
+	c += 1;
+	sleep(1)
 end
-
-p '===================================== DONE!'
 
 ## 受取側で情報取得できるかどうか確認する。
 
