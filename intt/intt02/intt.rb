@@ -21,7 +21,8 @@ def calcDistance(frame)
 	for i in frame
 		x = i[1]
 		y = i[2]
-		puts sprintf('DISTANCE: %s %s %s %s', x, y, pt.x, pt.y) # FIXME
+		distance = ((x - pt.x)**2 + (y - pt.y)**2) ** 0.5
+		puts sprintf('DISTANCE: %d : %s %s %.2f %.2f', distance, x, y, pt.x, pt.y) # FIXME
 	end
 end
 
@@ -80,7 +81,7 @@ loop do
 	calcDistance(frames)
 	p sprintf('===================================== %s %s', c, Time.now)
 	c += 1;
-	sleep(5)
+	#sleep(1)
 end
 
 ## 受取側で情報取得できるかどうか確認する。
