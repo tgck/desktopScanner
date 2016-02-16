@@ -9,11 +9,20 @@ include OSX
 OSX.require_framework 'ScriptingBridge'
 
 # 拡張子; 定数的に
-EXTS = Regexp.new('.*\.(aif|aiff|jpg|txt)', Regexp::IGNORECASE)
+EXTS = Regexp.new('.*\.(aif|aiff)', Regexp::IGNORECASE)
 
 # =============================================================================
 # 距離を計算する。内部で CGEvent を呼ぶ
 def calcDistance(frame)
+	event=OSX::CGEventCreate(nil); 
+	pt = OSX::CGEventGetLocation(event); 
+	puts sprintf("%.2f %.2f", pt.x, pt.y)
+
+	for i in frame
+		x = i[1]
+		y = i[2]
+		puts sprintf('DISTANCE: %s %s %s %s', x, y, pt.x, pt.y) # FIXME
+	end
 end
 
 
@@ -55,8 +64,8 @@ ARR_SIZE = targets.size
 frames = []
 
 for i in targets
-	p sprintf('PUSH: %s %s %s', i.index, i.desktopPosition.x, i.desktopPosition.y)
 	frames.push([i.index, i.desktopPosition.x, i.desktopPosition.y]) # 参照がコピーされていないか心配
+	sleep 1
 end
 
 for i in 0..ARR_SIZE-1
@@ -68,7 +77,7 @@ p '====================================='
 c = 1;
 # ループ
 loop do
-	scanDifference(frames, targets)
+	calcDistance(frames)
 	p sprintf('===================================== %s %s', c, Time.now)
 	c += 1;
 	sleep(5)
