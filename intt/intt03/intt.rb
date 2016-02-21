@@ -13,22 +13,26 @@ OSX.require_framework 'ScriptingBridge'
 # 正規化した距離
 @screenStr = `system_profiler SPDisplaysDataType | grep Resolution`.split().values_at(1,3)
 
-pos = [300, 400]
+def normalize(pos, scr=@screenStr)
+	return [pos[0]/scr[0].to_f, pos[1].to_f/scr[1].to_f]
+end
 
-puts "1: %s", pos 
-puts "2: %s", screen 
-puts printf( "%0.3f %0.3f", pos[0]/screen[0], pos[1]/screen[1] )
+def normalizeCGPoint(pos, scr=@screenStr)
+	return [pos.x/scr[0].to_f, pos.y/scr[1].to_f]
+end
 
-a = [pos[0]/screen[0], pos[1]/screen[1]]
+## 途中！！！！
+#pos = [300, 400]
+event=OSX::CGEventCreate(nil); 
+pos = OSX::CGEventGetLocation(event); 
+
+normalizeCGPoint(pos
+
+# a = [pos[0]/screen[0], pos[1]/screen[1]]
 
 
 #--------- ここまで ---------
 sleep(10)
-
-
-def normalize(pos, scr=@screenStr)
-	return [pos[0]/scr[0].to_f, pos[1].to_f/scr[1].to_f]
-end
 
 # 拡張子; 定数的に
 EXTS = Regexp.new('.*\.(aif|aiff)', Regexp::IGNORECASE)
