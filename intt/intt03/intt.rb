@@ -50,18 +50,39 @@ loop do
 	#puts sprintf("%02d,%02d", where_x, where_y)
 	STDOUT.flush
 
+	############ Console Animation #############
+	# dim,bold, 
+	# 1.0 を 20ステップなら、1ステップは0.05
+	# 0.05 を UNIT_VAL と定義
+	# X, Y それぞれの中に UNIT_VAL がいくつ含まれるかを算出
+	# for i in 1..STEP でまわして、idx != UNIT_VAL なら スペースをprint
+	#                           idx == UNIT_VAL なら * をprint
 	print("[")
 	for i in 1..STEP do 
-		if (i==where_x)
-			print("*")
+		if (i==where_x - 2) || (i==where_x + 2) 
+			print("\e[2m", "*", "\e[0m") 	# escape char for dim, and reset
+		elsif (i==where_x - 1) || (i==where_x + 1) 
+			#print("\e[2m", "*", "\e[0m") 	# escape char for dim, and reset
+			print("*")  # normal
+		elsif (i==where_x)
+			#print("\e[1m", "*", "\e[0m")
+			#print("\e[1m", "*", "\e[0m")  # escape char for bold, and reset
+			print("\e[1m", "*", "\e[0m") 
 		else
 			print(" ")
 		end
 	end
 	print ('] [')
 	for i in 1..STEP do 
-		if (i==where_y)
-			print("*")
+		if (i==where_y - 2) || (i==where_y + 2) 
+			print("\e[2m", "*", "\e[0m") 	# escape char for dim, and reset
+		elsif (i==where_y - 1) || (i==where_y + 1) 
+			#print("\e[2m", "*", "\e[0m") 	# escape char for dim, and reset
+			print("*")  # normal
+		elsif (i==where_y)
+			#print("\e[1m", "*", "\e[0m")
+			#print("\e[1m", "*", "\e[0m")  # escape char for bold, and reset
+			print("\e[1m", "*", "\e[0m") 
 		else
 			print(" ")
 		end
@@ -71,8 +92,3 @@ loop do
 	sleep(0.1)
 end
 
-# 1.0 を 20ステップなら、1ステップは0.05
-# 0.05 を UNIT_VAL と定義
-# X, Y それぞれの中に UNIT_VAL がいくつ含まれるかを算出
-# for i in 1..STEP でまわして、idx != UNIT_VAL なら スペースをprint
-#                           idx == UNIT_VAL なら * をprint
