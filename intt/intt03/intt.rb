@@ -31,6 +31,8 @@ def getCGPoint()
 end
 
 loop do
-	p getCGPoint().normalizeXY(@screen)
+	p = getCGPoint().normalizeXY(@screen)
+	print( p[0], "      ", p[1], "\r")
+	STDOUT.flush
 	sleep(1)
 end
