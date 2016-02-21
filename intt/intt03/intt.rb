@@ -11,24 +11,51 @@ OSX.require_framework 'ScriptingBridge'
 
 #--------- ここから ---------
 # 正規化した距離
-@screenStr = `system_profiler SPDisplaysDataType | grep Resolution`.split().values_at(1,3)
+#@screenStr = `system_profiler SPDisplaysDataType | grep Resolution`.split().values_at(1,3)
+@screenStr = `osascript -e 'tell application "Finder" to get bounds of window of desktop'`.split().values_at(2,3)
+@screen = [@screenStr[0].to_f, @screenStr[1].to_f]
 
-def normalize(pos, scr=@screenStr)
-	return [pos[0]/scr[0].to_f, pos[1].to_f/scr[1].to_f]
+# def normalize(pos, scr=@screenStr)
+# 	return [pos[0]/scr[0].to_f, pos[1].to_f/scr[1].to_f]
+# end
+
+# def normalizeCGPoint(pos, scr=@screenStr)
+# 	return [pos.x/scr[0].to_f, pos.y/scr[1].to_f]
+# end
+
+# メソッドチェーンを実現するためのモンキーパッチング
+# カレントオブジェクト self については 以下を参照
+# http://qiita.com/ToruFukui/items/be29968da6dc9d125315
+Float.class_eval do
+	def normalize(max)
+		return self / max
+	end
 end
 
-def normalizeCGPoint(pos, scr=@screenStr)
-	return [pos.x/scr[0].to_f, pos.y/scr[1].to_f]
+Array.class_eval do
+	def normalizeXY(vec)
+		return [self[0]/vec[0].to_f, self[1]/vec[1].to_f]
+	end
+end
+
+def getCGPoint()
+	event=OSX::CGEventCreate(nil); 
+	pos =  OSX::CGEventGetLocation(event); 
+	return [pos.x,pos.y]
 end
 
 ## 途中！！！！
-#pos = [300, 400]
-event=OSX::CGEventCreate(nil); 
-pos = OSX::CGEventGetLocation(event); 
+# float.round(n) 四捨五入メソッドは 1.9.3 からサポート
 
-normalizeCGPoint(pos
+#normalizeCGPoint(getCGPoint())
 
-# a = [pos[0]/screen[0], pos[1]/screen[1]]
+# もう一つの案
+getCGPoint().x.normalize(2880)
+getCGPoint().normalizeXY(@screen)
+
+
+
+
 
 
 #--------- ここまで ---------
