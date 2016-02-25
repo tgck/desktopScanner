@@ -22,19 +22,21 @@ for i in items
 	puts sprintf('POS:%s,%s', i[0], i[1])
 end
 
-# マウスの動きに応じて、毎フレーム距離をレポートする
+d = getDesktopSize()
+puts sprintf('SCREEN:%s %s', d[0], d[1])
+puts '===================================='
 
+# マウスの動きに応じて、毎フレーム距離をレポートする
 loop do
 	# マウス
 	m = getMousePosition()
-
 	puts sprintf('POSMOUS: %d %d', m[0], m[1])
 
-	cnt = 0
 	# 座標ども
+	cnt = 0
 	for i in items
-		#puts sprintf('POS[%02d]: %d %d', i.index, i.desktopPosition.x, i.desktopPosition.y)
-		puts sprintf('POS[%d]: %d %d', cnt, i[0], i[1])
+		# puts sprintf('POS[%d]: %d %d', cnt, i[0], i[1])
+		puts sprintf('POS[%d]: %d %d  DIST:[%d]', cnt, i[0], i[1], distance(i, m))
 		cnt += 1
 	end
 

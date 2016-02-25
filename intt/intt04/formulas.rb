@@ -56,5 +56,16 @@ def getMousePosition()
 	return [pos.x,pos.y]
 end
 # =============================================================================
-# マウス座標を返す
+# 2点間の距離
 #
+def distance(p2, p1)
+	return ( (p2[0]-p1[0])**2 + (p2[1]-p1[1])**2 ) ** 0.5
+end
+# =============================================================================
+# デスクトップ領域の解像度
+#
+def getDesktopSize()
+	resultShStr = `osascript -e 'tell application "Finder" to get bounds of window of desktop'`
+	sizeStr = resultShStr.split().values_at(2,3)
+	return [sizeStr[0].to_i, sizeStr[1].to_i]
+end
