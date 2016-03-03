@@ -8,7 +8,7 @@ require 'osx/cocoa'
 include OSX
 OSX.require_framework 'ScriptingBridge'
 
-INTERVAL = 1.0
+INTERVAL = 0.1
 
 # user scripts
 require 'formulas.rb'
@@ -33,7 +33,8 @@ loop do
 	# update ================================
 	dists = []
 	for i in items
-		dists.push(distance(i,m))
+		#dists.push(distance(i,m))
+		dists.push(n_distance(i,m))
 	end
 
 	# draw ==================================
@@ -42,8 +43,8 @@ loop do
 
 	cnt = 0
 	for i in items
-		#puts sprintf('POS:[%d]', dists[i]) ##ここがエラー！！！！！
-		#puts sprintf('POS[%d]: %d %d DIST:[%d]', cnt, items[0], items[1], dists[cnt])
+		# draw_bar_i(dists, cnt)
+		draw_bar_f(dists, cnt)
 		cnt += 1
 	end
 

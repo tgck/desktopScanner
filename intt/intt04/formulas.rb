@@ -50,6 +50,15 @@ def distance(p2, p1)
 	return ( (p2[0]-p1[0])**2 + (p2[1]-p1[1])**2 ) ** 0.5
 end
 # =============================================================================
+# 2点間の距離(デスクトップの縦、横軸でそれぞれ正規化されたもの)
+#
+def n_distance(p2, p1)
+	nrmd_dx = (p2[0] - p1[0]) / DESKTOP_SIZE[0].to_f
+	nrmd_dy = (p2[1] - p1[1]) / DESKTOP_SIZE[1].to_f
+	return ( nrmd_dx ** 2 + nrmd_dy ** 2 ) ** 0.5
+end
+
+# =============================================================================
 # デスクトップ領域の解像度
 #
 def getDesktopSize()
@@ -76,4 +85,27 @@ end
 
 def clear
 	system("clear")
+end
+# =============================================================================
+# 単一の項目に対し、レポートをプリントする
+#      data  : 配列
+#      index : フォーカス対象の番号
+def draw_bar_i(data, index)
+	puts sprintf('POS[%d]: [%d] ', index, data[index]) 
+end
+
+STEP = 20
+UNIT_VAL = 1.0/STEP
+def draw_bar_f(data, index)
+	printf('POS[%d]: [%.2f]', index, data[index]) 
+	where_x = (data[index] / UNIT_VAL).round
+
+	for i in 1..STEP do
+		unless (i==where_x) 
+			print("_")
+		else 
+			print("%")
+		end
+	end
+	puts ""
 end
