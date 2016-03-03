@@ -13,28 +13,33 @@ INTERVAL = 0.1
 # user scripts
 require 'formulas.rb'
 
-# ファイルとの距離をはかる(一度だけ)
+###
+### Finder 項目の情報収集
+###
 
 EXT = Regexp.new('.*\.(aif|aiff)', Regexp::IGNORECASE)
-items = getFinderItems(EXT)
-for i in items
-	#puts sprintf('POS:%s,%s,%s', i.desktopPosition.x, i.desktopPosition.y, NSURL.URLWithString(i.URL).path)
-	puts sprintf('POS:%s,%s', i[0], i[1])
-end
+itemDataArr = getFinderItems(EXT)
+positions = itemDataArr[0]
+@names = itemDataArr[1]
+@paths = itemDataArr[2]
 
+# Desktop の大きさ
 DESKTOP_SIZE = getDesktopSize()
 
-# マウスの動きに応じて、毎フレーム距離をレポートする
-# 重い計算と描画を処理を分ける(update & draw)
+### 
+### マウスの動きに応じて、毎フレーム距離をレポートする
+### 重い計算と描画を処理を分ける(update & draw)
+###
 loop do
 	# マウス
 	m = getMousePosition()
 
 	# update ================================
 	dists = []
-	for i in items
-		#dists.push(distance(i,m))
-		dists.push(n_distance(i,m))
+	for i in positions
+		#dists.push(distance(i,m))  # 単純な距離
+		dists.push(n_distance(i,m)) # 正規化された距離(1)
+		#dists.push(n2_distance(i,m)) # 正規化された距離(2) FIXME
 	end
 
 	# draw ==================================
@@ -42,7 +47,7 @@ loop do
 	print_header(DESKTOP_SIZE, m)
 
 	cnt = 0
-	for i in items
+	for i in 1..positions.size
 		# draw_bar_i(dists, cnt)
 		draw_bar_f(dists, cnt)
 		cnt += 1

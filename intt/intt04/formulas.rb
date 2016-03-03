@@ -8,13 +8,15 @@ require 'date'
 
 # =============================================================================
 # Finder Items のファイル抽出
-#
+#    多値返却。
 def getFinderItems(ext_patterns)
 	finder = SBApplication.applicationWithBundleIdentifier("com.apple.finder")
 	files = finder.files
 
 	targets = [] # FinderItemへの参照を格納
 	positions = []
+	names = []
+	paths = []
 
 	for i in files
 		name = i.name
@@ -27,14 +29,18 @@ def getFinderItems(ext_patterns)
 
 	for i in targets
 		positions.push([i.desktopPosition.x, i.desktopPosition.y])
+		names.push(i.name)
+		paths.push(NSURL.URLWithString(i.URL).path)
 	end
 
 	#for i in targets
 	#	puts sprintf('%s,%s,%s,%s', i.name, i.desktopPosition.x, i.desktopPosition.y, NSURL.URLWithString(i.URL).path)
 	#end
-	#return targets
-	return positions
+
+	return positions, names, paths
 end
+
+
 # =============================================================================
 # マウス座標を返す
 #
@@ -107,5 +113,6 @@ def draw_bar_f(data, index)
 			print("%")
 		end
 	end
-	puts ""
+	#puts ""
+	puts sprintf('[%s]', @paths[index])
 end
