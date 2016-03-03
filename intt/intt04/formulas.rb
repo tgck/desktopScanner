@@ -4,20 +4,8 @@
 #
 # 条件に見合った Finder 項目と、マウスポインタとの距離を繰り返し、出力する。
 
-# =============================================================================
-# 距離を計算する。内部で CGEvent を呼ぶ
-def calcDistance(frame)
-	event=OSX::CGEventCreate(nil); 
-	pt = OSX::CGEventGetLocation(event); 
-	puts sprintf("%.2f %.2f", pt.x, pt.y)
+require 'date'
 
-	for i in frame
-		x = i[1]
-		y = i[2]
-		distance = ((x - pt.x)**2 + (y - pt.y)**2) ** 0.5
-		puts sprintf('DISTANCE: %d : %s %s %.2f %.2f', distance, x, y, pt.x, pt.y) # FIXME
-	end
-end
 # =============================================================================
 # Finder Items のファイル抽出
 #
@@ -68,4 +56,24 @@ def getDesktopSize()
 	resultShStr = `osascript -e 'tell application "Finder" to get bounds of window of desktop'`
 	sizeStr = resultShStr.split().values_at(2,3)
 	return [sizeStr[0].to_i, sizeStr[1].to_i]
+end
+# =============================================================================
+# プリント関数
+# => Pのインデックス, Pの座標, Mの座標, 2点間の距離
+def report(p2, p1)
+	puts
+end
+
+# =============================================================================
+# 各フレームで固定の情報をプリントする
+# => ディスプレイサイズ
+def print_header(disp, mouse)
+	puts sprintf('TIME    :%s', Time.now)
+	puts sprintf('DESKTOP :%s %s', disp[0], disp[1])
+	puts sprintf('MOUSE   : %d %d', mouse[0], mouse[1])
+	puts '===================================='
+end
+
+def clear
+	system("clear")
 end

@@ -15,28 +15,35 @@ require 'formulas.rb'
 
 # ファイルとの距離をはかる(一度だけ)
 
-extentions = Regexp.new('.*\.(aif|aiff)', Regexp::IGNORECASE)
-items = getFinderItems(extentions)
+EXT = Regexp.new('.*\.(aif|aiff)', Regexp::IGNORECASE)
+items = getFinderItems(EXT)
 for i in items
 	#puts sprintf('POS:%s,%s,%s', i.desktopPosition.x, i.desktopPosition.y, NSURL.URLWithString(i.URL).path)
 	puts sprintf('POS:%s,%s', i[0], i[1])
 end
 
-d = getDesktopSize()
-puts sprintf('SCREEN:%s %s', d[0], d[1])
-puts '===================================='
+DESKTOP_SIZE = getDesktopSize()
 
 # マウスの動きに応じて、毎フレーム距離をレポートする
+# 重い計算と描画を処理を分ける(update & draw)
 loop do
 	# マウス
 	m = getMousePosition()
-	puts sprintf('POSMOUS: %d %d', m[0], m[1])
 
-	# 座標ども
+	# update ================================
+	dists = []
+	for i in items
+		dists.push(distance(i,m))
+	end
+
+	# draw ==================================
+	clear
+	print_header(DESKTOP_SIZE, m)
+
 	cnt = 0
 	for i in items
-		# puts sprintf('POS[%d]: %d %d', cnt, i[0], i[1])
-		puts sprintf('POS[%d]: %d %d  DIST:[%d]', cnt, i[0], i[1], distance(i, m))
+		#puts sprintf('POS:[%d]', dists[i]) ##ここがエラー！！！！！
+		#puts sprintf('POS[%d]: %d %d DIST:[%d]', cnt, items[0], items[1], dists[cnt])
 		cnt += 1
 	end
 
