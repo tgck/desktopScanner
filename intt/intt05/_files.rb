@@ -2,11 +2,16 @@
 
 # ruby 1.8.7 on OS X Marverics
 #
-# 条件に見合った Finder 項目を抽出して、ファイルのロード命令を標準出力。
-# Usage: (上位から呼ぶこと)
+# ファイルのロード命令を標準出力する
+# 
+# コンフィグ[0]: OSCメッセージテンプレート
+# コンフィグ[1]: 抽出ファイルの拡張子
+# => 	
 # 出力: 
-# => 
-# => 
+# => intt05:540$ ./_files.rb -c
+# => * getFinderItems: match/all:[2/49]
+# => /dscand/path/0/ s /Users/tani/Desktop/01.aif
+# => /dscand/path/1/ s /Users/tani/Desktop/02.aif
 
 # configs
 OSC_STRING = "/dscand/path/ID/"
