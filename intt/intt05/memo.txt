@@ -1,0 +1,63 @@
+次の方向性:
+
+- コンソールに表示しつつ
+	別のプロセス (Sender) に値を渡したい。
+	-> tee を使う
+	http://www.atmarkit.co.jp/bbs/phpBB/viewtopic.php?topic=44341&forum=10
+
+	コンソール　はアニメーション省いた部分がそのまま送信内容になるべし
+	osc で　send するので。
+
+
+- クライアントの動きをふまえた 整合の確保
+
+	- ファイルの
+		1. ロード命令
+			sleep
+		2. 距離のレポート
+
+	- プロトコル
+		SINOPSYS: /dscand/command 
+		/dscand/files 		xx 採用。 
+			/dscand/files/[1-9][0-9]+/ s filepath 
+		/dscand/positions	xx 不採用　
+		/dscand/distances/[1-9][0-9]+/ ff distance_x distance_y
+
+	- フラグで動きを切り替える
+		無印 で標準出力
+		-v でアニメーション
+
+===============================================================================
+
+— クライアント（Max）
+
+	- 距離をもらう Max アプリ
+		- sfplay　
+		- 単純なミキサー (動的? 資産があるので掘り出し)
+
+- ツール (Command Line / File in / Files out)
+	
+	- ファイルのセットアッパー
+		- 適当な感じの。1を入れると10返してくれるような。
+			- 人がコレクションしたプリセットもいいけど
+			- ある程度　対象に一貫したルールがあった方がいいのでは？
+
+		- BBCut 
+			アルゴリズムをちょっと掘り下げる、という方向
+
+	- コマンドライン希望。
+	- 該当するファイルをいったん退避してくれるとよい。
+		ちょっとしたサンドボックス
+
+	キーワード:
+	- 教師なし学習: unsupervised learning
+	- クラスタリング - 
+	- 分割: segmentation, splitting, divide
+
+	sound file unsupervised clustering 
+	single source 
+	データ(単一のサウンドファイル、単一の映像ファイル)を対象にした マシンラーニング
+	(そもそもそれって、マシンラーニングっていうのか?)
+
+
+
