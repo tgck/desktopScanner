@@ -52,6 +52,8 @@ int main (int argc, const char * argv[]) {
 	//
 	// main loop
 	//
+    // TODO: report mouse pointers.
+    // TODO: report track pad events.
 	while (TRUE) {
 		
 		// Differences!!!
