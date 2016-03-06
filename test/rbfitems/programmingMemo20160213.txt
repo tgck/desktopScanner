@@ -1,0 +1,57 @@
+programmingMemo20160213.txt
+
+ここで見かけた。Items から Unix Path の配列を取得したい。
+	http://stackoverflow.com/questions/3074396/scriptingbridge-finder-posix-path
+	SBObject の配列に、arrayByApplyingSelector を適用している。
+
+orgArray.arrayByApplyingSelector(:selector)
+で、写像した配列を取得することができるらしい。
+
+	- 参考:
+		http://stackoverflow.com/questions/1309958/avoiding-applescript-through-ruby-rb-appscript-or-rubyosa
+
+さて、じゃあどんな セレクタが使えるのか？
+
+>> windows = finder.windows
+=> #<SBElementArray [#<OSX::FinderWindow:0x88f53b14 class='FinderWindow' id=0x7fb18babf2b0>]>
+
+これは通る
+
+>> a = windows.arrayByApplyingSelector(:name)
+=> #<NSMutableArray [#<NSMutableString "rbfitems">]>
+>> a[0]
+=> #<NSMutableString "rbfitems">
+
+position というセレクタも存在するらしい。
+
+>> a =  windows.arrayByApplyingSelector(:position)
+=> #<NSMutableArray [#<OSX::NSConcreteValue:0x88f43890 class='NSConcreteValue' id=0x7fb18a33bb70>]>
+>> a[0]
+=> #<OSX::NSConcreteValue:0x88f43890 class='NSConcreteValue' id=0x7fb18a33bb70>
+
+空だけれどもこういうのも取れた
+
+>> a =  windows.arrayByApplyingSelector(:desktopPosition)
+=> #<NSMutableArray []>
+>> a[0]
+=> nil
+
+?> a =  windows.arrayByApplyingSelector(:labelIndex)
+=> #<NSMutableArray []>
+>> a =  windows.arrayByApplyingSelector(:URL)
+=> #<NSMutableArray []>
+
+
+どうやら　Finder.h に定義されている interface FinderItem に属する property が穫れるようである。
+@interface FinderItem : SBObject
+
+
+//////// じゃ、元に立ち戻って //////////
+
+>> b = a.arrayByApplyingSelector(:URL)
+>> b[0]
+=> #<NSMutableString "file:///Users/tani/Desktop/01.aif">
+>> puts b[0]
+>> file:///Users/tani/Desktop/01.aif
+
+まあまあ良いね。しかしこの形式は、UNIX コマンドではたどれない。
