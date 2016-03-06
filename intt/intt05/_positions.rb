@@ -4,32 +4,28 @@
 #
 # 条件に見合った Finder 項目と、マウスポインタとの距離を繰り返し、出力する。
 
-require 'osx/cocoa'
-include OSX
-OSX.require_framework 'ScriptingBridge'
+####require 'osx/cocoa'
+####include OSX
+####OSX.require_framework 'ScriptingBridge'
 
-INTERVAL = 0.1
+INTERVAL = 1.0
 
 # user scripts
-require 'formulas.rb'
+#require 'formulas.rb'
 
 ###
 ### Finder 項目の情報収集
 ###
 
-EXT = Regexp.new('.*\.(aif|aiff)', Regexp::IGNORECASE)
+####EXT = Regexp.new('.*\.(aif|aiff)', Regexp::IGNORECASE)
 itemDataArr = getFinderItems(EXT)
 positions = itemDataArr[0]
-@names = itemDataArr[1]
-@paths = itemDataArr[2]
 
 # Desktop の大きさ
 DESKTOP_SIZE = getDesktopSize()
 
-### 
 ### マウスの動きに応じて、毎フレーム距離をレポートする
 ### 重い計算と描画を処理を分ける(update & draw)
-###
 loop do
 	# マウス
 	m = getMousePosition()
@@ -43,13 +39,9 @@ loop do
 	end
 
 	# draw ==================================
-	clear
-	print_header(DESKTOP_SIZE, m)
-
 	cnt = 0
 	for i in 1..positions.size
-		# draw_bar_i(dists, cnt)
-		draw_bar_f(dists, cnt)
+		printline(dists, cnt)
 		cnt += 1
 	end
 

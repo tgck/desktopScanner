@@ -73,13 +73,6 @@ def getDesktopSize()
 	return [sizeStr[0].to_i, sizeStr[1].to_i]
 end
 # =============================================================================
-# プリント関数
-# => Pのインデックス, Pの座標, Mの座標, 2点間の距離
-def report(p2, p1)
-	puts
-end
-
-# =============================================================================
 # 各フレームで固定の情報をプリントする
 # => ディスプレイサイズ
 def print_header(disp, mouse)
@@ -115,4 +108,11 @@ def draw_bar_f(data, index)
 	end
 	#puts ""
 	puts sprintf('[%s]', @paths[index])
+end
+
+OSCSTRING_POS = "/dscand/dist/ID/"
+# 単一の項目に対し、レポートをプリントする テキストで
+def printline(data, index)
+	str = OSCSTRING_POS.sub(/ID/, index.to_s)
+	puts sprintf("%s f %.3f", str, data[index]) 
 end

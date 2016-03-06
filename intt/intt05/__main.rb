@@ -7,7 +7,8 @@
 
 require 'optparse'
 params = ARGV.getopts('c')
-p params['c']
+
+WAITTIME_CLI = 3
 
 if params['c'] then
 
@@ -15,7 +16,12 @@ if params['c'] then
 	require '_files.rb'
 
 	# 読み込み完了待ち
-	sleep 5	
+	STDERR.print "wait _TIMES_ seconds for the client's preparation".sub(/_TIMES_/, WAITTIME_CLI.to_s) 
+	for i in 1..WAITTIME_CLI do
+		STDERR.print "."
+		sleep 1
+	end
+
 
 	# 距離のレポート
 	require '_positions.rb'
