@@ -3,7 +3,10 @@
 # ruby 1.8.7 on OS X Marverics
 #
 # - ロード命令と、ポジショントラックの分割
-# - 引数c の場合に アニメーション抑止して、テキストだけとする
+# - 引数c を指定した場合は、コンソールモード。アニメーションを出力せず、テキストのみ。
+# 
+# usage: ./__main.rb -c (コンソールモード)
+#      : ./__main.rb (モニタモードGUI)
 
 require 'optparse'
 params = ARGV.getopts('c')
@@ -11,7 +14,8 @@ params = ARGV.getopts('c')
 WAITTIME_CLI = 3
 
 if params['c'] then
-
+	# GUIなし。OSC用
+	p 'console mode!'
 	# ファイルロード命令
 	require '_files.rb'
 
@@ -27,7 +31,7 @@ if params['c'] then
 	require '_positions.rb'
 
 else
-	# シングルで使う時用
+	# GUI あり
 	require 'console.rb'
 end
 
